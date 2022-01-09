@@ -8,12 +8,12 @@ const App: React.FC = () => {
 
   return (
     <div>
-     {lastJsonMessage && <><div>
+     {lastJsonMessage ? <><div>
         Temperatura: {parseFloat(lastJsonMessage.temp).toFixed(2)}°C
       </div>
       <div>
         Fuego: {lastJsonMessage.fuego ? "si" : "no"}
-      </div></>}
+      </div></> : "cargando"}
     </div>
   );
 };
