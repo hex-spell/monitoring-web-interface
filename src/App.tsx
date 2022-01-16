@@ -4,15 +4,15 @@ import useWebSocket from 'react-use-websocket';
 const App: React.FC = () => {
   const {
     lastJsonMessage
-  } = useWebSocket("wss://modularizar.com/ws?a=123&t=listener");
+  } = useWebSocket("wss://modularizar.com/ws");
 
   return (
     <div>
      {lastJsonMessage ? <><div>
-        Temperatura: {parseFloat(lastJsonMessage.temp).toFixed(2)}°C
+        Temperatura: {parseFloat(lastJsonMessage.ambientTemperature).toFixed(2)}°C
       </div>
       <div>
-        Fuego: {lastJsonMessage.fuego ? "si" : "no"}
+        Fuego: {lastJsonMessage.fireAlarm ? "si" : "no"}
       </div></> : "cargando"}
     </div>
   );
