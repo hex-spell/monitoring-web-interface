@@ -48,8 +48,7 @@ export const Dashboard: React.FC = () => {
                 type="semicircle"
                 value={parseFloat(lastMessage.ambientTemperature) / 50}
                 valueText={
-                  parseFloat(lastMessage.ambientTemperature).toFixed(2) +
-                  "°C"
+                  parseFloat(lastMessage.ambientTemperature).toFixed(2) + "°C"
                 }
                 valueTextColor="#f44336"
                 borderColor="#f44336"
@@ -97,9 +96,8 @@ export const Dashboard: React.FC = () => {
                 type="semicircle"
                 value={parseFloat(lastMessage.ambientTemperature) / 50}
                 valueText={
-                  (parseFloat(lastMessage.ambientTemperature) - 10).toFixed(
-                    2
-                  ) + "°C"
+                  (parseFloat(lastMessage.ambientTemperature) - 10).toFixed(2) +
+                  "°C"
                 }
                 valueTextColor="#f44336"
                 borderColor="#f44336"
@@ -154,8 +152,17 @@ export const Dashboard: React.FC = () => {
           </Card>
         </div>
       ) : (
-        <div style={{ width: "inherit", height: "inherit" }}>
-          <Spin size="large" />
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            minHeight: "90vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Spin size="large" style={{transform: "scale(3)"}}/>
         </div>
       )}
     </div>

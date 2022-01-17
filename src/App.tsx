@@ -13,7 +13,7 @@ const App: React.FC = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
 
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Drawer
         width={300}
         closeIcon={false}
