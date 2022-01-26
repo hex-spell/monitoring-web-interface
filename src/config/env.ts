@@ -1,1 +1,1 @@
-export const API_ENDPOINT = process.env.REACT_APP_API_URL;
+export const API_ENDPOINT = "https://modularizar.com";
