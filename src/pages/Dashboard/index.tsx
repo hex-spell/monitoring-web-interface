@@ -3,7 +3,6 @@ import { Button, Card, Spin } from "antd";
 import { WebsocketsContext } from "context";
 import { Gauge } from "framework7-react";
 import React, { useContext } from "react";
-import useWebSocket from "react-use-websocket";
 
 export const Dashboard: React.FC = () => {
   const { lastMessage } = useContext(WebsocketsContext);
