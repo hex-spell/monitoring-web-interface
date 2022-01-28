@@ -4,6 +4,10 @@ import useWebSocket from "react-use-websocket";
 export const WebsocketsContext = createContext({
   lastMessage: {
     ambientTemperature: "0",
+    ambientHumidity: "0",
+    waterTemperature: "0",
+    waterTDS: "0",
+    waterPh: "0",
     fireAlarm: false,
   },
 });

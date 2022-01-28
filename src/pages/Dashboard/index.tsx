@@ -8,15 +8,19 @@ export const Dashboard: React.FC = () => {
   const { lastMessage } = useContext(WebsocketsContext);
   //recommended between 5.5 and 6
   //gauge from 4 to 8, middle at 6
-  const acidity = parseFloat((Math.random() * (5.8 - 6) + 6).toFixed(1));
+  //const acidity = parseFloat((Math.random() * (5.8 - 6) + 6).toFixed(1));
 
   //recommended between 1.5 and 2.5
   //gauge from 0.5 to 1,69
-  const ec = parseFloat((Math.random() * (1.2 - 1.4) + 1.4).toFixed(2));
+  //const ec = parseFloat((Math.random() * (1.2 - 1.4) + 1.4).toFixed(2));
+
+   //recommended 800
+  //gauge from 400 to 1200
+  //const tds = parseFloat((Math.random() * (1.2 - 1.4) + 1.4).toFixed(2));
 
   //recommended between 50% and 60%
   //gauge from 0% to 100%
-  const humidity = parseFloat((Math.random() * (50 - 51) + 51).toFixed(2));
+  //const humidity = parseFloat((Math.random() * (50 - 51) + 51).toFixed(2));
   return (
     <div>
       {lastMessage ? (
@@ -70,8 +74,8 @@ export const Dashboard: React.FC = () => {
             >
               <Gauge
                 type="semicircle"
-                value={humidity / 100}
-                valueText={humidity + "%"}
+                value={parseFloat(lastMessage.ambientHumidity) / 100}
+                valueText={parseFloat(lastMessage.ambientHumidity) + "%"}
                 valueTextColor="#f44336"
                 borderColor="#f44336"
               />
@@ -119,8 +123,8 @@ export const Dashboard: React.FC = () => {
             >
               <Gauge
                 type="semicircle"
-                value={((acidity - 4) * 25) / 100}
-                valueText={acidity + "Ph"}
+                value={((parseFloat(lastMessage.waterPh) - 4) * 25) / 100}
+                valueText={parseFloat(lastMessage.waterPh) + "Ph"}
                 valueTextColor="#f44336"
                 borderColor="#f44336"
               />
@@ -142,8 +146,8 @@ export const Dashboard: React.FC = () => {
             >
               <Gauge
                 type="semicircle"
-                value={((ec - 0.5) * 59) / 100}
-                valueText={ec}
+                value={((parseFloat(lastMessage.waterTDS) - 400)) / 800}
+                valueText={parseFloat(lastMessage.waterTDS)+"ppm"}
                 valueTextColor="#f44336"
                 borderColor="#f44336"
               />
