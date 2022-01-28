@@ -1,75 +1,110 @@
-import { SettingFilled } from "@ant-design/icons";
-import { Button, Card } from "antd";
+import { LineChart } from "components";
 import React from "react";
-import { Line } from "@nivo/line";
-import useResizeAware from "react-resize-aware";
 import { useHourlySensorData } from "services";
-import moment from "moment";
 
 export const History: React.FC = () => {
-  const [resizeListener, sizes] = useResizeAware();
   const { loading, data, error } = useHourlySensorData();
-  const width = (sizes.width || 300) - 30;
   return (
     <div>
-      <Card
-        title="Ambient temperature"
-        extra={
-          <Button type="default" shape="circle" icon={<SettingFilled />} />
-        }
-        style={{ width: "100%" }}
-      >
-        <div
-          style={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          {resizeListener}
-          <div style={{ width: width > 1200 ? width : 1200, maxWidth: "100%", overflowX: "scroll" }}>
-            {loading && "cargando"}
-            {data && (
-              <Line
-                height={300}
-                width={width > 1200 ? width : 1200}
-                yScale={{
-                  type: "linear",
-                  stacked: true,
-                  min: 10,
-                  max: 50,
-                }}
-                margin={{ bottom: 50, right: 50, left: 50, top: 10 }}
-                enableCrosshair
-                enablePoints
-                isInteractive
-                useMesh
-                curve="monotoneX"
-                colors={{ scheme: "category10" }}
-                axisBottom={{
-                  format: (value) =>
-                    moment
-                      .unix(parseFloat(data[value].createdAt))
-                      .format("DD/MM/YY h:mm"),
-                }}
-                data={[
-                  {
-                    id: "Sensors",
-                    data: data.map(
-                      ({ ambientTemperature, ...rest }, index) => ({
-                        x: index,
-                        y: ambientTemperature,
-                        ...rest,
-                      })
-                    ),
-                  },
-                ]}
-              />
-            )}
-            {error && <div>{error}</div>}
-          </div>
-        </div>
-      </Card>
+      <LineChart
+        title="Ambient Temperature"
+        loading={loading}
+        error={error}
+        data={[
+          {
+            id: "Ambient",
+            data: [...(data || [])].map(
+              ({ ambientTemperature, ...rest }, index) => ({
+                x: index,
+                y: ambientTemperature,
+                ...rest,
+              })
+            ),
+          },
+        ]}
+      />
+      <LineChart
+        title="Water Temperature"
+        loading={loading}
+        error={error}
+        data={[
+          {
+            id: "Water",
+            data: [...(data || [])].map(
+              ({ waterTemperature, ...rest }, index) => ({
+                x: index,
+                y: waterTemperature,
+                ...rest,
+              })
+            ),
+          },
+        ]}
+      />
+      <LineChart
+        title="Ambient Humidity"
+        loading={loading}
+        error={error}
+        yScale={{
+          type: "linear",
+          stacked: false,
+          min: 0,
+          max: 100,
+        }}
+        data={[
+          {
+            id: "Sensors",
+            data: [...(data || [])].map(
+              ({ ambientHumidity, ...rest }, index) => ({
+                x: index,
+                y: ambientHumidity,
+                ...rest,
+              })
+            ),
+          },
+        ]}
+      />
+      <LineChart
+        title="Water TDS"
+        loading={loading}
+        error={error}
+        yScale={{
+          type: "linear",
+          stacked: false,
+          min: 150,
+          max: 1500,
+        }}
+        data={[
+          {
+            id: "Sensors",
+            data: [...(data || [])].map(({ waterTDS, ...rest }, index) => ({
+              x: index,
+              y: waterTDS,
+              ...rest,
+            })),
+          },
+        ]}
+      />
+      <LineChart
+        title="Water Ph"
+        loading={loading}
+        error={error}
+        yScale={{
+          type: "linear",
+          stacked: false,
+          min: 0,
+          max: 14,
+        }}
+        data={[
+          {
+            id: "Sensors",
+            data: [...(data || [])].map(({ waterPh, ...rest }, index) => ({
+              x: index,
+              y: waterPh,
+              ...rest,
+            })),
+          },
+        ]}
+      />
     </div>
   );
 };
